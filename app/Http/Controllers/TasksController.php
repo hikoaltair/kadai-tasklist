@@ -108,6 +108,7 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         //バリデーション
         $request->validate([
             'status' =>'required|max:10',
@@ -119,6 +120,8 @@ class TasksController extends Controller
         //タスクを更新
         $task->status = $request->status;
         $task->content = $request->content;
+        
+        dd($task);
         $task->save();
         
         //トップページへリダイレクト
