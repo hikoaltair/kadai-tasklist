@@ -120,8 +120,6 @@ class TasksController extends Controller
         //タスクを更新
         $task->status = $request->status;
         $task->content = $request->content;
-        
-        dd($task);
         $task->save();
         
         //トップページへリダイレクト
