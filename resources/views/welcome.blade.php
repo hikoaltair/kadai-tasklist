@@ -2,7 +2,21 @@
 
 @section('content')
     @if (Auth::check())
-        {{ Auth::user()->name }}
+        <div class="row">
+            <aside class="col-sm-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ Auth::user()->name }}</h3>
+                    </div>
+                </div>
+            </aside>
+            <div class="col-sm-8">
+                {{-- index.blade.phpを表示--}}
+                @include('tasks.index')
+                {{-- 投稿一覧 --}}
+                @include('tasks.tasks')
+            </div>
+        </div>
     @else
         <div class="center jumbotron">
             <div class="text-center">
@@ -13,3 +27,4 @@
         </div>
     @endif
 @endsection
+

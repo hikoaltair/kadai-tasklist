@@ -35,7 +35,11 @@ Route::get('/', 'TasksController@index');
 //編集ページ
 //Route::get('tasks/{id}/edit','TasksController@edit')->name('tasks.edit');
 
-Route::resource('tasks','TasksController');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('users', 'UsersController');
+    Route::resource('tasks','TasksController');
+});
 
 //ユーザ登録
 Route::get('signup','Auth\RegisterController@showRegistrationForm')->name('signup.get');
