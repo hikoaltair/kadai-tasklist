@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'TasksController@index');
+
 
 //CRUD
 //メッセージの個別詳細ページ表示
@@ -35,6 +35,7 @@ Route::get('/', 'TasksController@index');
 //編集ページ
 //Route::get('tasks/{id}/edit','TasksController@edit')->name('tasks.edit');
 
+Route::get('/', 'TasksController@index');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController',['only' => ['index','show','store','update','create','edit','destroy']]);
