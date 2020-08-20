@@ -36,7 +36,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
     //このユーザが所有する投稿。（ Tasksモデルとの関係を定義）
     public function tasks()
     {

@@ -10,10 +10,7 @@ class TasksController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'delete']);
-        // 追加
-        $this->middleware('can:update,task')->only(['edit', 'update']);
-        $this->middleware('verified')->only('create');
+    
     }
     /**
      * Display a listing of the resource.
@@ -21,7 +18,7 @@ class TasksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
         $data = [];
         if (\Auth::check()) { // 認証済みの場合
             
@@ -93,6 +90,11 @@ class TasksController extends Controller
         //idの値でタスクを検索して取得
         $task =Task::findOrFail($id);
         
+        //showについて認可を指定
+        $this->authorize('view', $task);
+        
+        $user =User::findOrFail($user_id);
+        
         //タスク詳細一覧でそれを表示
         return view('tasks.show',[
             'task' => $task
@@ -109,6 +111,8 @@ class TasksController extends Controller
     {
         //idの値でタスクを検索して取得
         $task = Task::findOrFail($id);
+        
+        $this->authorize('update', $task);
         
         //メッセージ編集ビューでそれを表示
         return  view ('tasks.edit',[
@@ -153,6 +157,9 @@ class TasksController extends Controller
     {
         // idの値で投稿を検索して取得
         $task = \App\Task::findOrFail($id);
+        
+        // 削除に関して認可を指定
+        $this->authorize('delete', $task);
         
         // 認証済みユーザ（閲覧者）がその投稿の所有者である場合は、投稿を削除
         if (\Auth::id() === $task->user_id) {

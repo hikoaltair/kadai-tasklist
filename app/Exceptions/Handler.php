@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class Handler extends ExceptionHandler
 {
@@ -50,6 +51,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        //↓元々の記述を残す
+        //return parent::render($request, $exception);
+        
+        if ($exception instanceof AuthorizationException) {
+            return redirect('/');
+        }else{
+            return parent::render($request, $exception);
+        }
     }
 }
