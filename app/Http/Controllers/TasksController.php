@@ -93,7 +93,7 @@ class TasksController extends Controller
         //showについて認可を指定
         $this->authorize('view', $task);
         
-        $user =User::findOrFail($user_id);
+        //$user = User::findOrFail($user_id);
         
         //タスク詳細一覧でそれを表示
         return view('tasks.show',[
